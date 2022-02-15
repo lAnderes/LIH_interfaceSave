@@ -127,10 +127,8 @@ namespace LIHinterface {
 		MyForm(void)
 		{
 
-			for (int i = 0; i < 5; i++)
-			{
-				Queues[i] = gcnew Queue(2000);
-			}
+			for(int i = 0; i< 5; i++)
+				Queues[i] = gcnew Queue();
 
 			for (int i = 0; i < 5; i++)
 				InData[i] = NULL;
@@ -222,19 +220,19 @@ namespace LIHinterface {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea7 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea8 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea9 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea10 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea11 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea12 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series7 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series8 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series9 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series10 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series11 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series12 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea4 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea6 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->ADCcheckedListBox = (gcnew System::Windows::Forms::CheckedListBox());
 			this->DACcheckedListBox = (gcnew System::Windows::Forms::CheckedListBox());
 			this->durationTextBox = (gcnew System::Windows::Forms::TextBox());
@@ -324,7 +322,6 @@ namespace LIHinterface {
 			// 
 			// timer1
 			// 
-			this->timer1->Enabled = true;
 			this->timer1->Interval = 120;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
@@ -348,64 +345,64 @@ namespace LIHinterface {
 			// 
 			// chart1
 			// 
-			chartArea7->AxisX->IsStartedFromZero = false;
-			chartArea7->CursorX->IsUserEnabled = true;
-			chartArea7->CursorX->IsUserSelectionEnabled = true;
-			chartArea7->CursorY->IsUserEnabled = true;
-			chartArea7->CursorY->IsUserSelectionEnabled = true;
-			chartArea7->Name = L"ChartArea1";
-			chartArea8->CursorX->IsUserSelectionEnabled = true;
-			chartArea8->Name = L"ChartArea2";
-			chartArea9->CursorX->IsUserSelectionEnabled = true;
-			chartArea9->Name = L"ChartArea3";
-			chartArea10->CursorX->IsUserSelectionEnabled = true;
-			chartArea10->Name = L"ChartArea4";
-			chartArea11->CursorX->IsUserSelectionEnabled = true;
-			chartArea11->Name = L"ChartArea5";
-			chartArea12->CursorX->IsUserSelectionEnabled = true;
-			chartArea12->Name = L"ChartArea6";
-			this->chart1->ChartAreas->Add(chartArea7);
-			this->chart1->ChartAreas->Add(chartArea8);
-			this->chart1->ChartAreas->Add(chartArea9);
-			this->chart1->ChartAreas->Add(chartArea10);
-			this->chart1->ChartAreas->Add(chartArea11);
-			this->chart1->ChartAreas->Add(chartArea12);
+			chartArea1->AxisX->IsStartedFromZero = false;
+			chartArea1->CursorX->IsUserEnabled = true;
+			chartArea1->CursorX->IsUserSelectionEnabled = true;
+			chartArea1->CursorY->IsUserEnabled = true;
+			chartArea1->CursorY->IsUserSelectionEnabled = true;
+			chartArea1->Name = L"ChartArea1";
+			chartArea2->CursorX->IsUserSelectionEnabled = true;
+			chartArea2->Name = L"ChartArea2";
+			chartArea3->CursorX->IsUserSelectionEnabled = true;
+			chartArea3->Name = L"ChartArea3";
+			chartArea4->CursorX->IsUserSelectionEnabled = true;
+			chartArea4->Name = L"ChartArea4";
+			chartArea5->CursorX->IsUserSelectionEnabled = true;
+			chartArea5->Name = L"ChartArea5";
+			chartArea6->CursorX->IsUserSelectionEnabled = true;
+			chartArea6->Name = L"ChartArea6";
+			this->chart1->ChartAreas->Add(chartArea1);
+			this->chart1->ChartAreas->Add(chartArea2);
+			this->chart1->ChartAreas->Add(chartArea3);
+			this->chart1->ChartAreas->Add(chartArea4);
+			this->chart1->ChartAreas->Add(chartArea5);
+			this->chart1->ChartAreas->Add(chartArea6);
 			this->chart1->Cursor = System::Windows::Forms::Cursors::Default;
-			legend2->Name = L"Legend1";
-			this->chart1->Legends->Add(legend2);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
 			this->chart1->Location = System::Drawing::Point(209, 3);
 			this->chart1->MaximumSize = System::Drawing::Size(904, 1500);
 			this->chart1->Name = L"chart1";
-			series7->ChartArea = L"ChartArea1";
-			series7->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
-			series7->Legend = L"Legend1";
-			series7->Name = L"Series1";
-			series8->ChartArea = L"ChartArea2";
-			series8->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
-			series8->Legend = L"Legend1";
-			series8->Name = L"Series2";
-			series9->ChartArea = L"ChartArea3";
-			series9->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
-			series9->Legend = L"Legend1";
-			series9->Name = L"Series3";
-			series10->ChartArea = L"ChartArea4";
-			series10->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
-			series10->Legend = L"Legend1";
-			series10->Name = L"Series4";
-			series11->ChartArea = L"ChartArea5";
-			series11->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
-			series11->Legend = L"Legend1";
-			series11->Name = L"Series5";
-			series12->ChartArea = L"ChartArea6";
-			series12->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
-			series12->Legend = L"Legend1";
-			series12->Name = L"Series6";
-			this->chart1->Series->Add(series7);
-			this->chart1->Series->Add(series8);
-			this->chart1->Series->Add(series9);
-			this->chart1->Series->Add(series10);
-			this->chart1->Series->Add(series11);
-			this->chart1->Series->Add(series12);
+			series1->ChartArea = L"ChartArea1";
+			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
+			series1->Legend = L"Legend1";
+			series1->Name = L"Series1";
+			series2->ChartArea = L"ChartArea2";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
+			series2->Legend = L"Legend1";
+			series2->Name = L"Series2";
+			series3->ChartArea = L"ChartArea3";
+			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
+			series3->Legend = L"Legend1";
+			series3->Name = L"Series3";
+			series4->ChartArea = L"ChartArea4";
+			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
+			series4->Legend = L"Legend1";
+			series4->Name = L"Series4";
+			series5->ChartArea = L"ChartArea5";
+			series5->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
+			series5->Legend = L"Legend1";
+			series5->Name = L"Series5";
+			series6->ChartArea = L"ChartArea6";
+			series6->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::FastLine;
+			series6->Legend = L"Legend1";
+			series6->Name = L"Series6";
+			this->chart1->Series->Add(series1);
+			this->chart1->Series->Add(series2);
+			this->chart1->Series->Add(series3);
+			this->chart1->Series->Add(series4);
+			this->chart1->Series->Add(series5);
+			this->chart1->Series->Add(series6);
 			this->chart1->Size = System::Drawing::Size(904, 878);
 			this->chart1->TabIndex = 8;
 			this->chart1->Text = L"chart1";
@@ -628,6 +625,7 @@ namespace LIHinterface {
 	private: System::Void StartButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
+
 		if (!backgroundWorker1->IsBusy)
 		{
 			if (initParamAcquis())
@@ -725,10 +723,6 @@ namespace LIHinterface {
 		}
 	}
 	private: System::Void backgroundWorker1_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e) {
-
-		
-
-		liveIsRunning = 1;;
 		
 		bool out = 0;
 		do
@@ -746,8 +740,6 @@ namespace LIHinterface {
 
 			if (samplesInFifo >= 1000)
 			{
-
-
 				int samplesToReadInFIFO;
 
 				if (samplesInFifo > AdBlockSize)
@@ -786,7 +778,7 @@ namespace LIHinterface {
 
 
 
-				if (Queues[0]->Count > 2000)
+				if (Queues[0]->Count > 2000 && liveViewMode == 1)
 				{
 					for (int actualChan = 0; actualChan < AdcChannelNumber; actualChan++)
 					{
@@ -849,12 +841,13 @@ namespace LIHinterface {
 				else
 					out = 1;
 
+		
 				
-				
-				
-		} while (!out);
 			
-	
+		} while (!out);
+
+		MethodInvoker^ mi = gcnew MethodInvoker(this, &MyForm::updateChart);
+		chart1->Invoke(mi);
 	}
 
 
@@ -864,7 +857,7 @@ private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^ sende
 		delete[](InData[i]);
 		//InData[i] = NULL;
 	}
-	
+	timer1->Stop();
 	readSamples = 0;
 	endLive = 1;
 	
@@ -931,6 +924,7 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 				AdcSamplesPerChannel = INT_MAX;
 				SampleInterval_ = 0.0001;
 			}
+			timer1->Start();
 			liveIsRunning = 1;
 		}
 		//IF we are not in a live view
@@ -952,14 +946,15 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 		}
 
 		//Reset the dispaly of data
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			this->chart1->Series[i]->Points->Clear();
 			this->chart1->Series[i]->Enabled = 0;
 			this->chart1->ChartAreas[i]->Visible = 0;
 			this->chart1->ChartAreas[i]->AxisY->Maximum = 1;
 			this->chart1->ChartAreas[i]->AxisY->Minimum = -1;
-
+			
+			Queues[i]->Clear();
 			
 	
 
@@ -1021,6 +1016,11 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 
 				//prepare the buffer the required channel
 				InData[i] = new EPC_INT16[AdBlockSize];
+
+		
+					
+
+
 				label5->Text = AdcString + ", " + chanString;
 
 			}
@@ -1050,6 +1050,7 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 
 		LIH_Halt();
 
+
 		////Start the recording of the data on the mentioned channels
 		bool success = LIH_StartStimAndSample(
 			DacChannelNumber,
@@ -1069,6 +1070,7 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 		//this->Cursor = Cursors::WaitCursor;
 		//if the acquisition has successfully started :
 
+		
 		if (success == 1)
 		{
 			backgroundWorker1->RunWorkerAsync();
