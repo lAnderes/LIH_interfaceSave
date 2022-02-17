@@ -1176,7 +1176,7 @@ void EPC_Calling LIH_ReadStimAndSample_ml(
 
 /*
    LIH_AppendToFIFO
-      The function LIH_AppendToFIFO should never append mode data to the
+      The function LIH_AppendToFIFO should never append more data to the
       DAC FIFO than ADC samples previously read out from the ADC FIFO by the
       function LIH_ReadStimAndSample.
       - "DacSamplesPerChannel" is the number of DA values to append to the

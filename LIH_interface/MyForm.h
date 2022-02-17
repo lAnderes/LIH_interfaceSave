@@ -9,7 +9,7 @@
 #include "EpcDLL.h"
 #include <chrono>
 #include <cmath>
-
+#include <math.h>
 #pragma comment(lib, "EpcDLL.lib")
 
 
@@ -24,18 +24,18 @@ namespace LIHinterface {
 	using namespace System::Threading;
 
 
-	EPC_INT16 DacChannelNumber = 0;
+	EPC_INT16 DacChannelNumber = 2;
 	EPC_INT16 AdcChannelNumber = 4;
 
-	EPC_INT32 DacSamplesPerChannel = 11;
+	EPC_INT32 DacSamplesPerChannel = 2500;
 	EPC_INT32 AdcSamplesPerChannel = 11;
 
-	EPC_INT16 DacChannels_[17] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	EPC_INT16 DacChannels_[17] = { 1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	EPC_INT16 AdcChannels_[17] = { 0, 1, 2, 3, 0, 0,0,0,0,0,0,0,0,0,0,0,0 };
 
 	EPC_SET16 AcquisitionMode = LIH_EnableDacOutput;
 
-	EPC_LONGREAL SampleInterval_ = 1;
+	EPC_LONGREAL SampleInterval_ = 0.00002;
 	EPC_LONGREAL* SampleInterval = &SampleInterval_;
 
 	double time = 0;
@@ -51,7 +51,7 @@ namespace LIHinterface {
 	int readSamples = 0;
 	int remainingAdSamples = 0;
 
-	int SamplesToWriteToFifo = 0;
+	int SamplesToWriteToFifo = 2500;
 
 
 	bool liveViewMode = 0;
@@ -536,7 +536,7 @@ namespace LIHinterface {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 9;
-			this->button1->Text = L"button1";
+			this->button1->Text = L"Stop";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -615,9 +615,6 @@ namespace LIHinterface {
 #pragma endregion
 
 
-
-
-
 	private: System::Void DACcheckedListBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 
 	}
@@ -668,8 +665,6 @@ namespace LIHinterface {
 	}
 	private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-
-
 
 	private : System::Void updateChart()
 	{
@@ -807,10 +802,13 @@ namespace LIHinterface {
 
 
 
-				//STIMULATION
+				//////STIMULATION
 
 				if (remainingDaSamples > samplesToReadInFIFO)
+				{
+					SamplesToWriteToFifo = samplesToReadInFIFO;
 					SetStimEnd = 0;
+				}
 				else
 				{
 					SamplesToWriteToFifo = remainingDaSamples;
@@ -818,16 +816,27 @@ namespace LIHinterface {
 				}
 
 
-				/*	LIH_AppendToFIFO(
-						SamplesToWriteToFifo,
-						SetStimEnd,
-						OutData);*/
+				//EPC_INT16 ptrOutData = OutData[0][writtenSamples];
 
+				/*if (*/
+				//int resultAppend = LIH_AppendToFIFO(
+				//	100,
+				//	SetStimEnd,
+				//	OutData);/*)
+				//{
+				//	MessageBox::Show("Probleme with Append");
+				//}
+				//else
+				//{
+				//	writtenSamples += SamplesToWriteToFifo;
+				//}*/
 
-						//writtenSamples = writtenSamples + SamplesToWriteToFifo;
+		
+
+					
 			}
 
-
+			  
 				
 			if (liveViewMode)
 				if (liveIsRunning)
@@ -857,6 +866,8 @@ private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^ sende
 		delete[](InData[i]);
 		//InData[i] = NULL;
 	}
+	
+	delete[] OutData[0];
 	timer1->Stop();
 	readSamples = 0;
 	endLive = 1;
@@ -900,9 +911,6 @@ private: System::Void ADCcheckedListBox_ItemCheck(System::Object^ sender, System
 
 }
 private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (comboBox3->SelectedIndex == 0)
-		AcquisitionMode = 0;
-	else
 		AcquisitionMode = std::pow(2,comboBox3->SelectedIndex);
 }
 
@@ -951,20 +959,17 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 			this->chart1->Series[i]->Points->Clear();
 			this->chart1->Series[i]->Enabled = 0;
 			this->chart1->ChartAreas[i]->Visible = 0;
-			this->chart1->ChartAreas[i]->AxisY->Maximum = 1;
-			this->chart1->ChartAreas[i]->AxisY->Minimum = -1;
+			this->chart1->ChartAreas[i]->AxisY->Maximum = 2;
+			this->chart1->ChartAreas[i]->AxisY->Minimum = -2;
 			
 			Queues[i]->Clear();
-			
-	
-
 		}
 
 
 		AdcChannelNumber = this->ADCcheckedListBox->CheckedItems->Count;
 
-
-
+		//Test -1 just to be sure
+		DacSamplesPerChannel = AdcSamplesPerChannel - 1;
 
 		if (AdcChannelNumber != 0)
 		{
@@ -1025,12 +1030,19 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 
 			}
 
+			OutData[0] = new EPC_INT16[DacSamplesPerChannel];
+			OutData[1] = new EPC_INT16[DacSamplesPerChannel];
+			prepareDataOut();
+
+
+
 			label5->Text = AdcString + "}";
 
 
 			if (liveViewMode)
 			{
 				AdBlockSize = 1000;
+
 				ReadContinuously = 1;
 			}
 
@@ -1048,14 +1060,14 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 
 	private: System::Void startAcquis(/*System::Object^ sender, System::EventArgs^ e*/) {
 
-		LIH_Halt();
+		//LIH_Halt();
 
 
 		////Start the recording of the data on the mentioned channels
 		bool success = LIH_StartStimAndSample(
 			DacChannelNumber,
 			AdcChannelNumber,
-			daBlockSize,
+			DacSamplesPerChannel,
 			AdBlockSize,
 			AcquisitionMode,
 			DacChannels_,
@@ -1087,7 +1099,28 @@ private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, Sys
 
 	}
 
+	private: System::Void prepareDataOut(/*System::Object^ sender, System::EventArgs^ e*/) {
 
+	/*	for (int actualChan = 0; actualChan < DacChannelNumber; actualChan++)
+		{*/
+
+			//For each samples recorded
+		for (int actualSample = 0; actualSample < DacSamplesPerChannel; actualSample++)
+		{
+				
+			if((actualSample % 1000) > 500)
+				OutData[0][actualSample] = 3200;
+			else
+				OutData[0][actualSample] = 0;
+	
+		}
+
+		for (int actualSample = 0; actualSample < DacSamplesPerChannel; actualSample++)
+		{
+				OutData[1][actualSample] = 3200 * sin(2* 3.14 * 2 * actualSample);
+		}
+		/*}*/
+	}
 
 
 };
